@@ -3,8 +3,11 @@
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-back-button default-href="/"></ion-back-button>
+            <ion-back-button default-href="/tabs"></ion-back-button>
           </ion-buttons>
+          <ion-icon>
+            <img src="/ajustes.png" alt="logo">
+          </ion-icon>
           <ion-title>Ajustes</ion-title>
         </ion-toolbar>
       </ion-header>
@@ -31,7 +34,7 @@
             <ion-label>Usuario</ion-label>
           </ion-list-header>
   
-          <ion-item detail>
+          <ion-item detail @click="navigateToAccount">
             <ion-icon slot="start" :icon="personOutline"></ion-icon>
             <ion-label>msedjai@elpuig.xeill.net</ion-label>
           </ion-item>
@@ -76,8 +79,10 @@
             <ion-label>Idioma</ion-label>
             <ion-select slot="end" value="es">
               <ion-select-option value="es">Español</ion-select-option>
-              <ion-select-option value="en">English</ion-select-option>
+              <ion-select-option value="ar">Arabic</ion-select-option>
               <ion-select-option value="ca">Català</ion-select-option>
+              <ion-select-option value="en">English</ion-select-option>
+              <ion-select-option value="fr">French</ion-select-option>
             </ion-select>
           </ion-item>
   
@@ -120,6 +125,13 @@
     languageOutline,
     informationCircleOutline
   } from 'ionicons/icons';
+  import { useRouter } from 'vue-router';
+  
+  const router = useRouter();
+  
+  const navigateToAccount = () => {
+    router.push('/cuenta');
+  };
   </script>
   
   <style scoped>

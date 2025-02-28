@@ -3,8 +3,9 @@
       <ion-header>
         <ion-toolbar>
           <ion-title class="main-title">⚽ Matches</ion-title>
-          <ion-buttons slot="end">
-            <ion-icon :icon="settingsOutline" class="settings-icon"></ion-icon>
+          <ion-buttons slot="end" class="buttons-container">
+            <img src="/ajustes.png" @click="goToAjustes" class="ajustes-icon"></img>
+            <img src="/buscar.png" @click="goToBuscar" class="buscar-icon"></img>
           </ion-buttons>
         </ion-toolbar>
         <ion-segment v-model="selectedSegment" class="custom-segment">
@@ -142,7 +143,13 @@
     IonButtons, IonIcon, IonModal, IonButton
   } from '@ionic/vue';
   import { settingsOutline } from 'ionicons/icons';
-  
+  import { useRouter } from 'vue-router'
+  const router = useRouter();
+
+  const goToAjustes = () => {
+    router.push('/ajustes');
+  };
+
   interface Match {
     id: number;
     league: string;
@@ -235,6 +242,9 @@
         return acc;
       }, {});
   });
+  const goToBuscar = () => {
+    router.push('/buscar');
+  };
   </script>
   
   <style scoped>
@@ -332,7 +342,7 @@
     color: #ffffff;
     
     margin: 0;
-    
+
   }
   
   .match-item {
@@ -411,9 +421,9 @@
   
   .vs {
     
-    width: 24px;
+    width: 30px;
     
-    height: 24px;
+    height: 30px;
     
     object-fit: contain;
     
@@ -466,6 +476,7 @@
     font-size: 1.1rem;
     
     color: #E58F04;
+
     
   }
   
@@ -486,7 +497,7 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     
   }
-  
+  .le
   .league-logo {
     
     width: 36px;
@@ -512,6 +523,9 @@
     --border-radius: 20px 20px 0 0;
     
   }
+  .league-item {
+    --background: #494646;
+  }
   
   .modal-title {
     
@@ -522,12 +536,32 @@
   }
   
   .close-button {
-    
     --color: #ffffff;
-    
+    --background: #9602024b;
     font-weight: 500;
     
   }
+  .buscar-icon{
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    display: block;       /* Permite centrar el elemento */
+    margin: 0 auto;       /* Centrado horizontal */
+  }
+  .ajustes-icon{
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    display: block;       /* Permite centrar el elemento */
+    margin: 0 auto;       /* Centrado horizontal */
+  }
+  .buttons-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
   
   @keyframes blink {
     
@@ -622,5 +656,19 @@
     }
     
   }
-  
+  .custom-segment{
+    --background: #2b2929;
+  }
+  .segment-button{
+    --background: #2b2929 !important;
+    --color: #ffffff !important;
+  }
+  .segment-button-checked{
+    --background: #2b2929 !important;
+    --color: #ffffff;
+  }
+  .league-section{
+    text-align: center;
+    font-weight: bold;
+  }
   </style>

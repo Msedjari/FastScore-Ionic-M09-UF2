@@ -94,6 +94,8 @@
   <script setup lang="ts">
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
+  import { IonPage, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonAvatar, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonIcon, IonLabel, IonActionSheet } from '@ionic/vue';
+  import { personOutline, lockClosedOutline, documentTextOutline, chevronForwardOutline } from 'ionicons/icons';
   
   const userName = ref('Mouad Sedjari');
   const userEmail = ref('mouad.sedjari@gmail.com');
@@ -130,7 +132,13 @@
   }
   
   function deleteAccount() {
-    router.push('/delete-account');
+    router.push('/registrar');
+  }
+
+  // Nueva función para mostrar términos
+  function showTerms(type: string) {
+    // Lógica para mostrar los términos según el tipo
+    console.log(`Mostrar términos: ${type}`);
   }
   </script>
   
@@ -141,6 +149,10 @@
     color: #ffffff;
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
   
   /* Encabezado */
@@ -148,7 +160,7 @@
     --background: transparent;
     --color: #ffffff;
   }
-  
+               
   /* Sección de foto y acciones */
   .account-header {
     display: flex;
@@ -158,13 +170,22 @@
   }
   
   .profile-photo {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     overflow: hidden;
     border: 3px solid #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .change-profile-button {
+    width: 200px;
+    height: 30px;
+    margin: 10px 0; /* Center button with margin */
   }
   
   .profile-photo img {
@@ -203,6 +224,8 @@
     padding: 15px;
     margin: 10px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .stat-value {
@@ -221,6 +244,8 @@
     --border-color: transparent;
     border-radius: 8px;
     margin-bottom: 10px;
+    margin-left: 100px;
+    margin-right: 100px;
   }
   
   /* Acciones finales */
@@ -230,5 +255,61 @@
     flex-direction: column;
     gap: 15px;
     padding: 0 20px;
+    align-items: center; /* Center actions */
   }
+  
+  .cerrar-sesion-button {
+    --border-radius: 8px;
+    --padding-start: 20px;
+  }
+
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .profile-photo {
+      width: 120px;
+      height: 120px;
+    }
+
+    .change-profile-button {
+      width: 150px;
+      height: 28px;
+    }
+
+    .user-name {
+      font-size: 1.2em;
+    }
+
+    .stat-card {
+      padding: 10px;
+    }
+
+    .account-options ion-item {
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .user-name {
+      font-size: 1em;
+    }
+
+    .email,
+    .join-date {
+      font-size: 0.85em;
+    }
+
+    .stat-value {
+      font-size: 1.2em;
+    }
+
+    .stat-label {
+      font-size: 0.75em;
+    }
+
+    .account-actions {
+      padding: 0 10px;
+    }
+  }
+  
   </style>

@@ -2,7 +2,11 @@
     <ion-page>
       <ion-header>
         <ion-toolbar>
-          <ion-title>Trophy Showcase</ion-title>
+          <ion-title>🏆 Trophy Showcase</ion-title>
+          <ion-buttons slot="end" class="buttons-container">
+            <img src="/ajustes.png" @click="goToAjustes" class="ajustes-icon"></img>
+            <img src="/buscar.png" class="buscar-icon" @click="goToBuscar"></img>
+          </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <ion-content :fullscreen="true">
@@ -70,7 +74,9 @@
         </ion-list>
   
         <div v-if="selectedTeam" class="info-box" @click.self="selectedTeam = null">
+          
           <div class="info-content">
+            <ion-button class="close-button" @click="selectedTeam = null">X</ion-button>
             <h2>{{ selectedTeam.name }}</h2>
             <img :src="selectedTeam.logo" class="modal-logo" />
             <h3>
@@ -122,8 +128,9 @@
   
   <script setup lang="ts">
   import { ref } from 'vue';
-  import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem } from '@ionic/vue';
-  
+  import { useRouter } from 'vue-router';
+  import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem ,IonButtons} from '@ionic/vue';
+  const router = useRouter();
   interface Cup {
     name: string;
     logo: string;
@@ -160,6 +167,10 @@
     { id: 19, name: 'Lyon', logo: '/lyon.png', championsLeague: 0, leagues: 7, localCups: [{ name: 'Coupe de France', logo: '/coupe_de_france.png' }] },
     { id: 20, name: 'Marseille', logo: '/marseille.png', championsLeague: 0, leagues: 9, localCups: [{ name: 'Coupe de France', logo: '/coupe_de_france.png' }] },
   ]);
+
+  const goToAjustes = () => {
+    router.push('/ajustes');
+  };
   
   const selectedTeam = ref<Team | null>(null);
   
@@ -171,6 +182,9 @@
   const filterLocalCups = (cups: Cup[]) => {
     const excluded = ['UEFA Champions League', 'Liga', 'Premier league', 'Bundesliga'];
     return cups.filter(cup => !excluded.includes(cup.name));
+  };
+  const goToBuscar = () => {
+    router.push('/buscar');
   };
   </script>
   
@@ -206,7 +220,6 @@
     height: 24px;
     margin-right: 8px;
   }
-  
   .info-box {
     position: fixed;
     top: 0;
@@ -217,6 +230,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
   }
   
   .info-content {
@@ -226,8 +240,27 @@
     color: white;
     text-align: center;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    position: relative; /* Ensure the close button is positioned relative to this container */
   }
-  
+  .close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    color: white;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin-top: -5px;
+    margin-right: 10px;
+    
+}
+
+ 
   .modal-logo {
     width: 140px;
     height: 140px;
@@ -235,5 +268,26 @@
     border-radius: 35px;
     border: 3px solid #E58F04;
   }
+  .buscar-icon{
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    display: block;       /* Permite centrar el elemento */
+    margin: 0 auto;       /* Centrado horizontal */
+  }
+  .ajustes-icon{
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    display: block;       /* Permite centrar el elemento */
+    margin: 0 auto;       /* Centrado horizontal */
+  }
+  .buttons-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
   </style>
   

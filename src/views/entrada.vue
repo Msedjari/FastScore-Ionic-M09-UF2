@@ -35,8 +35,9 @@
   
     <script setup lang="ts">
     import { ref, onMounted } from 'vue';
-    import { IonPage, IonButton } from '@ionic/vue';
     import { useRouter } from 'vue-router';
+    import { IonPage, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonAvatar, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonIcon, IonLabel, IonActionSheet } from '@ionic/vue';
+    import { personOutline, lockClosedOutline, documentTextOutline, chevronForwardOutline } from 'ionicons/icons';
     
     const showSplash = ref(true);
     const router = useRouter();
@@ -52,7 +53,7 @@
     };
     
     const goToRegister = () => {
-      router.push('/register'); // Ruta a la página de registro
+      router.push('/registrar'); // Ruta a la página de registro
     };
   
       // Función para ir a Info.vue
@@ -72,8 +73,9 @@
     }
     
     .splash-gif {
-      width: 750px;
-      height: 550px;
+      width: 100%; /* Make it responsive */
+      max-width: 750px; /* Limit max width */
+      height: auto; /* Maintain aspect ratio */
     }
     
     /* Pantalla principal */
@@ -85,15 +87,36 @@
       height: 100vh;
       background: black;
       color: white;
+      padding: 20px; /* Add padding for smaller screens */
     }
     
     .logo-container {
       margin-bottom: 20px;
+      width: 100%; /* Make it responsive */
+      display: flex;
+      justify-content: center; /* Center logo */
     }
     
     .logo {
-      width: 750px;
-      height: 550px;
+      width: 100%; /* Make it responsive */
+      max-width: 750px; /* Limit max width */
+      height: auto; /* Maintain aspect ratio */
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .splash-gif, .logo {
+        max-width: 90%; /* Adjust max width for smaller screens */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .splash-gif, .logo {
+        max-width: 100%; /* Full width on very small screens */
+      }
+      .main-screen {
+        padding: 10px; /* Reduce padding on small screens */
+      }
     }
     
     .buttons-container {

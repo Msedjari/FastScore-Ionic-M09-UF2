@@ -77,7 +77,6 @@
   
   .next-button {
     margin-top: 20px;
-    background-color: green;
     color: white;
     font-weight: bold;
   }

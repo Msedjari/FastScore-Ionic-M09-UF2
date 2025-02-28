@@ -3,6 +3,10 @@
       <ion-header>
         <ion-toolbar>
           <ion-title class="main-title"><img src="/star.png" style="width: 24px; height: 24px; vertical-align: middle; background: transparent;"> Favoritos</ion-title>
+          <ion-buttons slot="end" class="buttons-container">
+            <img src="/ajustes.png"  class="ajustes-icon" @click="goToAjustes"></img>
+            <img src="/buscar.png" class="buscar-icon" @click="goToBuscar"></img>
+          </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <ion-content :fullscreen="true" class="main-content">
@@ -58,6 +62,12 @@
   const removeFromFavorites = (teamId: number) => {
     favoriteTeams.value = favoriteTeams.value.filter(team => team.id !== teamId);
   };
+  const goToAjustes = () => {
+    router.push('/ajustes');
+  };
+  const goToBuscar = () => {
+    router.push('/buscar');
+  };
   
   const navigateTo = (option: string) => {
     router.push(`/${option}`);
@@ -68,6 +78,8 @@
   .main-content {
     --background: #000000;
   }
+
+  
   
   .main-title {
     font-size: 1.5rem;
@@ -127,5 +139,26 @@
   .team-name {
     justify-content: right;
   }
+  .buscar-icon{
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    display: block;       /* Permite centrar el elemento */
+    margin: 0 auto;       /* Centrado horizontal */
+  }
+  .ajustes-icon{
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    display: block;       /* Permite centrar el elemento */
+    margin: 0 auto;       /* Centrado horizontal */
+  }
+  .buttons-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
   </style>
   

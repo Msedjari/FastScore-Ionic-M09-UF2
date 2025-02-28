@@ -14,13 +14,13 @@
                 <div class="card-body p-5">
                   <div class="mb-4 text-center">
                     <h2 class="fw-bold mb-2 text-white">Crear Cuenta</h2>
-                    <p class="text-muted mb-4">Únete a nuestra comunidad deportiva</p>
+                    <p color="white" class="text-muted mb-4">Únete a nuestra comunidad deportiva</p>
                   </div>
   
                   <form>
                     <div class="form-group mb-4">
                       <ion-item class="custom-form-control">
-                        <ion-label position="floating">Nombre</ion-label>
+                        <ion-label position="floating">Nombre</ion-label><br>
                         <ion-input 
                           v-model="name" 
                           placeholder="Ingresa tu nombre"
@@ -31,7 +31,7 @@
   
                     <div class="form-group mb-4">
                       <ion-item class="custom-form-control">
-                        <ion-label position="floating">Correo</ion-label>
+                        <ion-label position="floating">Correo</ion-label><br>
                         <ion-input 
                           v-model="email" 
                           type="email" 
@@ -43,7 +43,7 @@
   
                     <div class="form-group mb-4">
                       <ion-item class="custom-form-control">
-                        <ion-label position="floating">Contraseña</ion-label>
+                        <ion-label position="floating">Contraseña</ion-label><br>
                         <ion-input 
                           v-model="password" 
                           type="password" 
@@ -52,13 +52,24 @@
                         </ion-input>
                       </ion-item>
                     </div>
-  
-                    <ion-button 
-                      expand="block" 
-                      class="mt-4 py-2" 
-                      @click="register">
-                      Crear cuenta
-                    </ion-button>
+                    <div class="buttons-container">
+                      <ion-button @click="goToInfo" class="custom-button">Registrarse</ion-button>
+                      <p>¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a></p>
+                    </div>
+                    <div class="social-login">
+                      <p>Iniciar sesión con:</p>
+                      <div class="icons">
+                        <ion-button @click="goToInfo" class="custom-button1">
+                          <img src="/google.png" class="social-icon" />
+                        </ion-button>
+                        <ion-button @click="goToInfo" class="custom-button1">
+                          <img src="/facebook.png" class="social-icon" />
+                        </ion-button>
+                        <ion-button @click="goToInfo" class="custom-button1">
+                          <img src="/apple.png" class="social-icon" />
+                        </ion-button>
+                      </div>
+                    </div>
                   </form>
                 </div>
               </div>
@@ -78,22 +89,15 @@
   const name = ref('');
   const email = ref('');
   const password = ref('');
-  
-  const register = () => {
-    // Validación básica
-    if (!name.value || !email.value || !password.value) {
-      alert('Por favor, rellena todos los campos');
-      return;
-    }
-    
-    console.log('Registrando:', { name: name.value, email: email.value, password: password.value });
-    router.push('/Info'); // Volvemos a la redirección original a Info.vue
-  };
+
+  const goToInfo = () => {
+      router.push('/Info');
+    };
   </script>
   
   <style scoped>
   .dark-bg {
-    --background: black;
+    --background: black !important;
   }
   
   .dark-card {
@@ -120,22 +124,88 @@
   
   ion-label {
     --color: white;
+    margin-bottom: 0;
+    font-weight: bold;
   }
   
-  ion-button {
-    --background: #31E504;
-    --background-activated: #2acc04;
-    --background-hover: #2acc04;
-    --border-radius: 10px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    height: 48px;
-    margin: 1rem 0;
-  }
+  .buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%; /* Ensure buttons take full width */
+      justify-content: center;
+      text-align: center;
+      margin-left: 0;
+      margin-top: 10px;
+    }
+    
+    
+    .social-icon {
+      width: 40px;
+      height: auto;
+      border-radius: 20px;
+    } 
+    
+    .custom-button {
+      width: 100%; /* Changed to full width */
+      max-width: 200px; /* Set max width */
+      height: 40px;
+      background-color: orange;
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-radius: 40px;
+      justify-content: center;
+      align-items: center;
+      margin-left: 170px;
+      margin-top: 10px;
+      text-align: center;
+    }
+    
+    .social-login {
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    .icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+      flex-wrap: wrap; /* Allow icons to wrap on smaller screens */
+    }
+    
+    .social-icon {
+      width: 40px;
+    }
   
   @media (max-width: 768px) {
     .card-body {
       padding: 2rem !important;
     }
+    .custom-button {
+      margin-left: 0; /* Center button on smaller screens */
+      margin-top: 10px;
+    }
+    .buttons-container {
+      flex-direction: column; /* Stack buttons vertically */
+      align-items: center; /* Center align buttons */
+    }
+    ion-input {
+      font-size: 0.9rem; /* Adjust font size for smaller screens */
+    }
+    .p {
+      font-size: 0.9rem; /* Adjust paragraph font size for smaller screens */
+    }
+  }
+  
+  .p {
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
   }
   </style>

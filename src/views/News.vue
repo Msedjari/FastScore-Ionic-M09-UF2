@@ -2,7 +2,10 @@
     <ion-page>
       <ion-header>
         <ion-toolbar>
-          <ion-title>News</ion-title>
+          <ion-title>📰News</ion-title>
+          <ion-buttons slot="end">
+            <img src="/ajustes.png" @click="goToAjustes"></img>
+          </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <ion-content :fullscreen="true">
@@ -20,7 +23,7 @@
                   <img :src="newsItem.image" alt="News Image" class="news-image" />
                   <div class="card-body">
                     <h5 class="news-title card-title">{{ newsItem.title }}</h5>
-                    <p class="modal-date"><small class="text-muted">{{ selectedNews.date }}</small></p>
+                    <p class="modal-date"><small class="text-muted">{{ newsItem.date }}</small></p>
                   </div>
                 </ion-item>
               </div>
@@ -28,16 +31,16 @@
           </div>
         </div>
 
-        <ion-modal v-if="selectedNews" @didDismiss="selectedNews = null" is-open="selectedNews !== null" class="custom-modal">
+        <ion-modal v-if="selectedNews" @didDismiss="selectedNews = null" :is-open="selectedNews !== null" class="custom-modal">
           <ion-header>
             <ion-toolbar>
-              <ion-title>{{ selectedNews.title }}</ion-title>
+              <ion-title v-if="selectedNews">{{ selectedNews.title }}</ion-title>
               <ion-buttons slot="end">
-                <ion-button @click="selectedNews = null" color="danger">Cerrar</ion-button>
+                <ion-button @click="selectedNews = null" class="close-button">Cerrar</ion-button>
               </ion-buttons>
             </ion-toolbar>
           </ion-header>
-          <ion-content class="modal-content">
+          <ion-content class="modal-content" v-if="selectedNews">
             <img :src="selectedNews.image" alt="News Image" class="modal-image-large" />
             <p class="modal-text">{{ selectedNews.text }}</p>
             <p class="modal-date"><small class="text-muted">{{ selectedNews.date }}</small></p>
@@ -49,8 +52,14 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonModal } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonModal, IonButtons, IonButton } from '@ionic/vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
+
+const goToAjustes = () => {
+    router.push('/ajustes');
+};
 const newsItems = ref([
     { id: 1, title: 'El Real Madrid alcanza los 54 puntos tras vencer al Girona', text: 'Con la victoria, el Real Madrid alcanzó los 54 puntos tras 25 partidos y rompió una racha de tres encuentros sin ganar, asegurando su persecución del título de LaLiga. El equipo de Ancelotti está empatado a puntos con el Barcelona, pero va por detrás por la diferencia de goles. El Atlético de Madrid es tercero con 53 puntos. El técnico italiano se mostró satisfecho con el rendimiento ante el Girona, a pesar de que no alcanzó el nivel exhibido en la victoria por 3-1 ante el Manchester City en la Liga de Campeones el pasado miércoles. "Suele ocurrir que cuando controlas bien un partido y no marcas más de 1-0, el empate es posible. Tuvieron la oportunidad de empatar en un contragolpe tras un saque de esquina. El segundo gol mató el partido. Se podía haber hecho antes, pero el equipo jugó bien. No era fácil repetir el compromiso del partido del miércoles, pero con este horario, me gustó la actitud. Aunque no estuviera al nivel del partido contra el City", dijo. El Real Madrid se enfrentará el miércoles a la Real Sociedad en la ida de las semifinales de la Copa del Rey, antes de visitar al Real Betis para disputar un partido de Liga el 1 de marzo.', image: 'image1.avif', date: '2025-02-23' },
     { id: 2, title: 'Guardiola confía en "un buen futuro" para el City pese a su crisis', text: 'El Manchester City está actualmente "lejos" del nivel del Liverpool, pero tiene "un buen futuro", estimó este domingo el entrenador del City, Pep Guardiola (54), después de la derrota por 0-2 sufrida en casa ante el líder de la Premier League. Los vigentes cuádruples campeones de Inglaterra son apenas cuartos en la actual edición y esta misma semana quedaron eliminados en el play-off de la Liga de Campeones europea, sin ni siquiera alcanzar los octavos de final. "Lo que hicimos las temporadas anteriores está bien, pero ahora estamos lejos de ellos", declaró Guardiola, preguntado por Sky Sports. Las bajas están siendo uno de los grandes problemas para el técnico catalán esta temporada. Este domingo faltaban por ejemplo el defensa John Stones y, sobre todo, el atacante Erling Haaland, además del lesionado de larga duración Rodri. "Incluso con el número de bajas que tenemos, hemos jugado muy bien", consideró. "Si hay que perder, hay que perder como hemos perdido hoy. He visto muchas cosas que muestran que este club tiene un buen futuro con los jugadores que tenemos", declaró. "A excepción de Kevin (De Bruyne) y quizás Nathan (Ake), todos los jugadores son muy, muy jóvenes. Hay un buen futuro para este club en los próximos años", insistió.', image: 'image2.avif', date: '2023-10-02' },
@@ -102,9 +111,17 @@ const newsItems = ref([
     },
 ]);
 
-const selectedNews = ref(null);
+interface NewsItem {
+    id: number;
+    title: string;
+    text: string;
+    image: string;
+    date: string;
+}
 
-function openNews(newsItem) {
+const selectedNews = ref<NewsItem | null>(null);
+
+function openNews(newsItem: any) {
     selectedNews.value = newsItem;
 }
 </script>
@@ -149,7 +166,6 @@ function openNews(newsItem) {
     margin-top: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
-    justify-content: right;
 }
 .custom-modal {
     --background: #ffffff; /* White background for the modal */
@@ -173,5 +189,49 @@ function openNews(newsItem) {
     font-size: 0.9em;
     color: #999;
     text-align: right; /* Align date to the right */
+}
+.close-button {
+    --color: #ffffff;
+    --background: #9602024b;
+    font-weight: 500;
+    
+  }
+
+/* Responsive styles for mobile and tablet */
+@media (max-width: 768px) {
+    .news-image {
+        width: 70%; /* Full width for mobile */
+    }
+    
+    .news-title {
+        font-size: 1.2em; /* Smaller title for mobile */
+        margin-left: 0; /* Center title below the image */
+        text-align: center; /* Center align title */
+        margin-top: 10px; /* Add space above the title */
+        
+    }
+
+    .news-date {
+        font-size: 0.8em; /* Smaller date for mobile */
+        margin-right: 0; /* Center date below the image */
+        text-align: center; /* Center align date */
+        margin-top: 5px; /* Add some space above the date */
+    }
+
+    .modal-text {
+        font-size: 1em; /* Smaller text for mobile */
+    }
+}
+
+@media (max-width: 1024px) {
+    .news-title {
+        font-size: 1.4em; /* Adjust title size for tablet */
+        text-align: center; /* Center align title */
+    }
+
+    .news-date {
+        font-size: 0.85em; /* Adjust date size for tablet */
+        text-align: center; /* Center align date */
+    }
 }
 </style>
